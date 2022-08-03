@@ -21,19 +21,17 @@ const Login: FC = () => {
   const onFinish = async (data: SubmitData) => {
     setLoading(true);
     await API()
-      .post(`http://35.201.2.209:8000/login`, data)
+      .post(`/login`, data)
       .then((response: any) => {
         if (response?.data) {
           setLoading(false);
           localStorage.setItem("accessToken", response?.data);
           setAuthorized(response?.data);
         }
-        console.log(response);
       })
       .catch((error: any) => {
         setLoading(false);
-        console.log(error.message);
-        toast.error(error.message);
+        toast.error(error.response.data);
       });
   };
 
@@ -67,8 +65,12 @@ const Login: FC = () => {
             name="email"
             rules={[
               {
+                type: "email",
+                message: "The input is not valid E-mail!",
+              },
+              {
                 required: true,
-                // pattern: new RegExp("/"),
+                message: "Please input your E-mail!",
               },
             ]}
           >

@@ -24,6 +24,7 @@ const ActiveUsers: FC<ActiveUser> = ({ users, loading }) => {
           </List.Item>
         )}
         loading={loading}
+        style={{ marginBottom: 20 }}
       />
     </div>
   );

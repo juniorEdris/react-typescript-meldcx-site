@@ -12,7 +12,7 @@ const Home: FC = () => {
 
   const getActiveUsers = async () => {
     API()
-      .get("http://35.201.2.209:8000/devices")
+      .get("/devices")
       .then((response: any) => {
         const { data } = response;
         const { devices } = data;
@@ -21,9 +21,7 @@ const Home: FC = () => {
           setLoading(false);
         }
       })
-      .catch((error: any) => {
-        console.log(error);
-
+      .catch(() => {
         setAllDevices([]);
         setLoading(false);
       });
@@ -45,13 +43,7 @@ const Home: FC = () => {
             padding: "38px 0",
           }}
         >
-          <Col
-            // span={{
-            //   xs: 20,
-            //   md: 11,
-            // }}
-            span="11"
-          >
+          <Col span="11">
             <ActiveUsers users={allDevices} loading={loading} />
           </Col>
           <Col>

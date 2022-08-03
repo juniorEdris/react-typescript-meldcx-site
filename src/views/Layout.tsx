@@ -2,6 +2,8 @@ import { LoginOutlined } from "@ant-design/icons";
 import { Layout, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import React, { FC, useEffect } from "react";
+import { toast } from "react-toastify";
+import API from "./utils";
 
 const { Header, Content, Footer } = Layout;
 
@@ -12,6 +14,25 @@ type ContainerProps = {
 const Container: FC<ContainerProps> = ({ children }) => {
   const navigate = useNavigate();
   const Authorized = localStorage.getItem("accessToken");
+
+  const handleNotify = async () => {
+    const data = {
+      name: "Mohammad Imthiaz Ragib",
+      email: "mohammedimthiaz17@gmail.com",
+      repoUrl: "https://github.com/juniorEdris/react-typescript-meldcx-site",
+      message:
+        "I am now a successful programmer. But back in the days I was a noobgrammer.",
+    };
+    API()
+      .post("/notify", data)
+      .then((response: any) => {
+        toast.success(response.data);
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     if (!Authorized) {
       navigate("/", { replace: true });
@@ -39,7 +60,12 @@ const Container: FC<ContainerProps> = ({ children }) => {
               backgroundColor: "#107FA8",
             }}
           >
-            <Button className="mr-2" type="primary" htmlType="button">
+            <Button
+              className="mr-2"
+              type="primary"
+              htmlType="button"
+              onClick={handleNotify}
+            >
               Notify
             </Button>
             <Button
