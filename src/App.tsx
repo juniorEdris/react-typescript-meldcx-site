@@ -1,11 +1,13 @@
 import "./App.css";
+import "antd/dist/antd.css";
+import { FC } from "react";
+import { useRoutes } from "react-router-dom";
+import router from "./router";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>React</h1>
-    </div>
-  );
-}
+const App: FC = () => {
+  const routes = useRoutes(router);
+
+  return <div className="App">{routes}</div>;
+};
 
 export default App;
